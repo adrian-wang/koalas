@@ -270,6 +270,13 @@ class DataFrameTest(ReusedSQLTestCase, SQLTestUtils):
         # s.rename(lambda x: x**2, inplace=True)
         # self.assert_eq(ks, ps)
 
+    def test_unique(self):
+        df = koalas.DataFrame({"x": [1, 2, 2, 3]})
+        unique_df = df.unique()
+        self.assert_eq(len(unique_df), 3)
+        self.assert_eq(unique_df.x.sum(), 6)
+        self.assert_eq(df.isin([1, 2, 3]), df.isin([1, 2, 3]))
+
     def test_dropna(self):
         pdf = pd.DataFrame({'x': [np.nan, 2, 3, 4, np.nan, 6],
                             'y': [1, 2, np.nan, 4, np.nan, np.nan],

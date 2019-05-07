@@ -1151,6 +1151,28 @@ defaultdict(<class 'list'>, {'col1': 2..., 'col2': 0.75})]
         return self._reduce_for_stat_function(_Frame._count_expr)
 
     def unique(self):
+        """
+        Returns a new DataFrame that contains only the unique rows from this DataFrame.
+
+        Returns
+        -------
+        uniqueDataFrame: DataFrame
+
+        Examples
+        --------
+        >>> df = ks.DataFrame({"Person": ['a', 'b', 'b', 'c']})
+        >>> df
+          Person
+        0      a
+        1      b
+        2      b
+        3      c
+        >>> df.unique()
+          Person
+        0      c
+        1      b
+        2      a
+        """
         return DataFrame(self._sdf.select(self._metadata.column_fields).distinct())
 
     def drop(self, labels, axis=1):
